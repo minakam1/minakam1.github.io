@@ -285,8 +285,8 @@
 
   
 
-<div id="banner" class="banner" parallax=true
-     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+<div id="banner" class="banner" parallax=true data-random-banner='/img/random/default.png'
+     style="background: url('/img/random/default.png') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
@@ -305,6 +305,19 @@
 </div>
 
 
+  <script>
+    (function() {
+      var banner = document.getElementById('banner');
+      if (!banner) return;
+      var list = banner.getAttribute('data-random-banner');
+      if (!list) return;
+      list = list.split(',').filter(Boolean);
+      if (list.length === 0) return;
+      var pick = list[Math.floor(Math.random() * list.length)];
+      banner.style.backgroundImage = "url('" + pick + "')";
+    })();
+  </script>
+
 
 </div>
 
@@ -322,7 +335,7 @@
                 
 
 <div class="list-group">
-  <p class="h4">9 posts in total</p>
+  <p class="h4">10 posts in total</p>
   <hr>
   
   
@@ -333,6 +346,12 @@
     <a href="/2026/03/18/hello-world/" class="list-group-item list-group-item-action">
       <time>03-18</time>
       <div class="list-group-item-title">Hello World</div>
+    </a>
+  
+    
+    <a href="/2026/03/09/agent/" class="list-group-item list-group-item-action">
+      <time>03-09</time>
+      <div class="list-group-item-title">想做个好！用！的录音</div>
     </a>
   
 </div>

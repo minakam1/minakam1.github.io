@@ -285,8 +285,8 @@
 
   
 
-<div id="banner" class="banner" parallax=true
-     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+<div id="banner" class="banner" parallax=true data-random-banner='/img/random/default.png'
+     style="background: url('/img/random/default.png') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
@@ -308,6 +308,19 @@
   </div>
 </div>
 
+
+  <script>
+    (function() {
+      var banner = document.getElementById('banner');
+      if (!banner) return;
+      var list = banner.getAttribute('data-random-banner');
+      if (!list) return;
+      list = list.split(',').filter(Boolean);
+      if (list.length === 0) return;
+      var pick = list[Math.floor(Math.random() * list.length)];
+      banner.style.backgroundImage = "url('" + pick + "')";
+    })();
+  </script>
 
 
 </div>
@@ -355,6 +368,46 @@
           </div>
         
         
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2026/03/09/agent/" target="_self">
+          想做个好！用！的录音
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2026/03/09/agent/" target="_self">
+        <div>
+          实时录音与编辑App开发文档版本：1.0最后更新：2026-03-09    1. 项目概述1.1 背景与目标本项目旨在开发一款跨平台的录音应用，核心特色包括：  实时编辑：在录音过程中或录音后，可对任意音频段落进行删除、重录、插入、排序等操作。 撤回上一句：支持撤销最近一次录音或编辑动作（可多次撤回）。 实时语音识别：在录音同时，通过端侧引擎将语音实时转换为文字，并与音频段落同步展示，便于基于文
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2026-03-09 19:30" pubdate>
+              2026-03-09
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/coding/">#coding</a>
+            
+          </div>
         
       </div>
     </article>
