@@ -901,6 +901,8 @@ body {
 body {
   transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
   background-color: var(--body-bg-color);
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4XiDAAAAUVBMVEWFhYWDg4N3d3dtbW17e3t1dXWBgYGHh4d5eXlzc3OLi4ubm5uVlZWPj4+NjY19fX2JiYl/f39ra2uRkZGZmZlpaWmXl5dvb29xcXGTk5NnZ2c4zI/IGAAAAC3RSTlMAAAD/AAAAeJxjYGRgYOBikGPQYWB0cfMJYeBgYGGAAYJgYmDkAQMqC+Hx8fG9/Y9/j5+g4fN2/fX+YshqAAAABYktHRADW8a3kAAAAfElEQVR4nO3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/jcgAB4TwHhM4C5HAAAAAElFTkSuQmCC");
+  background-repeat: repeat;
   color: var(--text-color);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
