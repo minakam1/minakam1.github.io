@@ -327,7 +327,21 @@
   
 
 <div id="banner" class="banner" parallax=true data-random-banner='/img/random/111%20(1).JPG'
-     style="background: url('/img/random/111%20(1).JPG') no-repeat center center; background-size: cover;">
+     style="background: #f8f9fa; background-size: cover;">
+  <script>
+    (function() {
+      var banner = document.getElementById('banner');
+      var imgUrl = '/img/random/111%20(1).JPG';
+      if (imgUrl) {
+        var img = new Image();
+        img.onload = function() {
+          banner.style.background = 'url(' + imgUrl + ') no-repeat center center';
+          banner.style.backgroundSize = 'cover';
+        };
+        img.src = imgUrl;
+      }
+    })();
+  </script>
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
@@ -395,7 +409,12 @@
       list = list.split(',').filter(Boolean);
       if (list.length === 0) return;
       var pick = list[Math.floor(Math.random() * list.length)];
-      banner.style.backgroundImage = "url('" + pick + "')";
+      var img = new Image();
+      img.onload = function() {
+        banner.style.background = 'url(' + pick + ') no-repeat center center';
+        banner.style.backgroundSize = 'cover';
+      };
+      img.src = pick;
     })();
   </script>
 
