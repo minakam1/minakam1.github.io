@@ -1,0 +1,11 @@
+@font-face {
+  font-family: 'hwmc';
+  src: url('/blog/fonts/hwmc.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+body {
+  font-family: 'hwmc', sans-serif;
+}

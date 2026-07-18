@@ -1,0 +1,169 @@
+# Fluid 主题配置文件
+# 文档: https://fluid-dev.github.io/docs/
+
+# 站点信息
+navbar:
+  blog_title: 杂音堆积处
+  logo:
+    enabled: false
+    url: /img/logo.png
+  menu:
+    - name: 首页
+      link: /
+    - name: 归档
+      link: /archives/
+    - name: 标签
+      link: /tags/
+    - name: 分类
+      link: /categories/
+    - name: 相册
+      link: /相册/
+    - name: 图片都是我拍的
+      link: /about/
+
+# 页脚信息
+footer:
+  enabled: true
+  copyright:
+    enabled: true
+    content: © 2026 我!
+  social:
+    enabled: true
+    items:
+      GitHub: https://github.com
+      微博: https://weibo.com
+
+# 首屏图片的相关配置
+# Config of the big image on the first screen
+banner:
+  # 是否开启所有页面的随机头图，仅在页面对应 banner_img 为空时生效，将图片放在 source/img/random/ 目录下
+  # Enable random banner for all pages, only works when banner_img is empty, put images in the directory `source/img/random/`
+  random_img: true
+
+  # 视差滚动，图片与板块会随着屏幕滚动产生视差效果
+  # Scrolling parallax
+  parallax: true
+
+  # 图片最小的宽高比，以免图片两边被过度裁剪，适用于移动端竖屏时，如需关闭设为 0
+  # Minimum ratio of width to height, applicable to the vertical screen of mobile device, if you need to close it, set it to 0
+  width_height_ratio: 1.0
+
+# 首页配置
+index:
+  banner:
+    enabled: true
+    title: 欢迎来到我的个人站
+    subtitle: 什么年代了还在搞博客
+    button:
+      enabled: true
+      text: 开始阅读
+      url: /archives/
+  # 首页 Banner 头图，可以是相对路径或绝对路径
+  # 留空启用随机头图
+  banner_img:
+  # 头图高度，屏幕百分比
+  banner_img_height: 100
+  # 头图黑色蒙版的不透明度，available: 0 - 1.0，1 是完全不透明
+  banner_mask_alpha: 0.3
+  # 首页副标题的独立设置
+  slogan:
+    enable: true
+    text: 有太多想法做不完...
+
+# 文章页配置
+post:
+  # 留空启用随机头图
+  banner_img:
+  banner_img_height: 70
+  banner_mask_alpha: 0.3
+  toc:
+    enabled: true
+  meta:
+    author:
+      enable: true
+    date:
+      enable: true
+    wordcount:
+      enable: true
+    min2read:
+      enable: true
+  copyright:
+    enabled: true
+    license: ''
+    author:
+      enable: true
+    post_date:
+      enable: false
+  reward:
+    enabled: false
+
+# 归档页配置
+archive:
+  # 留空启用随机头图
+  banner_img:
+  banner_img_height: 60
+  banner_mask_alpha: 0.3
+
+# 分类页配置
+category:
+  # 留空启用随机头图
+  banner_img:
+  banner_img_height: 60
+  banner_mask_alpha: 0.3
+
+# 标签页配置
+tag:
+  # 留空启用随机头图
+  banner_img:
+  banner_img_height: 80
+  banner_mask_alpha: 0.3
+
+# 关于页配置
+about:
+  # 留空启用随机头图
+  banner_img:
+  banner_img_height: 60
+  banner_mask_alpha: 0.3
+
+# 自定义页配置
+page:
+  # 留空启用随机头图
+  banner_img:
+  banner_img_height: 60
+  banner_mask_alpha: 0.3
+
+# 404页配置
+page404:
+  # 留空启用随机头图
+  banner_img:
+  banner_img_height: 85
+  banner_mask_alpha: 0.3
+
+# 友链页配置
+links:
+  # 留空启用随机头图
+  banner_img:
+  banner_img_height: 60
+  banner_mask_alpha: 0.3
+
+# 评论配置
+comment:
+  enabled: false
+
+# 搜索配置
+search:
+  enabled: true
+  type: local
+
+# 代码高亮
+code:
+  highlight:
+    enable: true
+    line_number: true
+    auto_detect: false
+    tab_replace:
+
+# 指定自定义 .css 文件路径，用法和 custom_js 相同
+# The usage is the same as custom_js
+custom_css:
+  - /css/custom-font.css

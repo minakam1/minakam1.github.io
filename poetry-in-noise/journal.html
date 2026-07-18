@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="paper">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>mimi. / journal</title>
+  <meta name="description" content="日志 · mimi. 的随笔" />
+  <link rel="preconnect" href="https://fonts.loli.net" crossorigin />
+  <link href="https://fonts.loli.net/css2?family=Press+Start+2P&family=VT323&family=DM+Serif+Display:ital@0;1&family=ZCOOL+XiaoWei&display=swap" rel="stylesheet" crossorigin="anonymous" />
+  <link rel="stylesheet" href="./subpage.css?v=1" />
+</head>
+<body>
+  <div class="overlay overlay--halftone"></div>
+  <div class="overlay overlay--grain"></div>
+  <div class="overlay overlay--scanlines"></div>
+  <div class="overlay overlay--vignette"></div>
+  <div class="cursor" id="cursor"><span class="cursor__cross"></span></div>
+
+  <header class="statusbar">
+    <div class="statusbar__left">
+      <span class="statusbar__dot"></span>
+      <span>REC</span>
+      <span class="statusbar__sep">·</span>
+      <span>JOURNAL</span>
+      <span class="statusbar__sep">·</span>
+      <span>ISSUE NO.001</span>
+    </div>
+    <div class="statusbar__right">
+      <span id="clock">--:--:--</span>
+      <span class="statusbar__sep">·</span>
+      <a class="statusbar__btn" href="./index.html">← home</a>
+      <button class="statusbar__btn" id="themeBtn" type="button">▣</button>
+    </div>
+  </header>
+
+  <main class="main">
+    <a class="back" href="./index.html">← 返回主页</a>
+    <h1 class="h">日志</h1>
+    <p class="sub">// JOURNAL · 2025 — 2026 · 12 篇</p>
+    <div class="divider"></div>
+    
+      <article class="entry"><h3>关于「来不及」的练习</h3><p class="meta">2026.07.14 · 周二</p><p>今天学会了不去接住每一句想说的话。沉默是另一种完成。</p></article>
+      <article class="entry"><h3>把噪音折成信</h3><p class="meta">2026.06.20 · 周六</p><p>附近工地在打桩，我把声音录下来，用它写了一首诗。结论是：噪音折不成信，但可以折成一只纸飞机。</p></article>
+      <article class="entry"><h3>凌晨四点的 web</h3><p class="meta">2026.05.04 · 周一</p><p>那个只在 4:00 出现的网站，今天第一次打开。是一只正在下沉的船。我没看完就关了。</p></article>
+      <article class="entry"><h3>关于一本不会出版的小书</h3><p class="meta">2026.03.18 · 周三</p><p>64 页。锁线。手感像猫的舌头。写给那些在书店会翻开同一页的人。</p></article>
+      <p style="text-align:center;font-family:'VT323',monospace;color:var(--muted);font-size:13px;margin-top:24px;">— 滚动加载更多 —</p>
+    
+  </main>
+
+  <footer class="colophon">
+    <span>© mimi. / mmxxvi</span>
+    <span>journal · printed on the internet</span>
+  </footer>
+
+  <script>
+  (() => {
+    const THEMES = ['paper','ink','snow','copper'];
+    const LABELS = {paper:'米色',ink:'夜墨',snow:'雪',copper:'铜版'};
+    const STORAGE = 'mimi.theme';
+    function apply(n){
+      if (!THEMES.includes(n)) n='paper';
+      document.documentElement.setAttribute('data-theme', n);
+      const b=document.getElementById('themeBtn');
+      if(b) b.title='纸张: '+LABELS[n];
+      try{localStorage.setItem(STORAGE,n);}catch(e){}
+    }
+    let saved='paper';
+    try{saved=localStorage.getItem(STORAGE)||'paper';}catch(e){}
+    apply(saved);
+    document.getElementById('themeBtn').addEventListener('click',()=>{
+      const cur=document.documentElement.getAttribute('data-theme')||'paper';
+      apply(THEMES[(THEMES.indexOf(cur)+1)%THEMES.length]);
+    });
+    document.addEventListener('keydown',(e)=>{
+      if(e.key>='1'&&e.key<='4'){apply(THEMES[+e.key-1]);}
+    });
+
+    const c=document.getElementById('clock');
+    if(c){
+      const t=()=>{const d=new Date(),p=n=>String(n).padStart(2,'0');c.textContent=p(d.getHours())+':'+p(d.getMinutes())+':'+p(d.getSeconds());};
+      t();setInterval(t,1000);
+    }
+
+    const cur=document.getElementById('cursor');
+    if(cur && !matchMedia('(hover: none)').matches){
+      let tx=innerWidth/2,ty=innerHeight/2,cx=tx,cy=ty;
+      addEventListener('mousemove',e=>{tx=e.clientX;ty=e.clientY;});
+      const loop=()=>{cx+=(tx-cx)*0.55;cy+=(ty-cy)*0.55;cur.style.transform='translate('+cx+'px,'+cy+'px) translate(-50%,-50%)';requestAnimationFrame(loop);};
+      loop();
+      addEventListener('mouseleave',()=>cur.style.opacity='0');
+      addEventListener('mouseenter',()=>cur.style.opacity='1');
+    }
+  })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="paper">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>mimi. / corner</title>
+  <meta name="description" content="角 · 彩蛋 / 杂物 / 留白" />
+  <link rel="preconnect" href="https://fonts.loli.net" crossorigin />
+  <link href="https://fonts.loli.net/css2?family=Press+Start+2P&family=VT323&family=DM+Serif+Display:ital@0;1&family=ZCOOL+XiaoWei&display=swap" rel="stylesheet" crossorigin="anonymous" />
+  <link rel="stylesheet" href="./subpage.css?v=1" />
+</head>
+<body>
+  <div class="overlay overlay--halftone"></div>
+  <div class="overlay overlay--grain"></div>
+  <div class="overlay overlay--scanlines"></div>
+  <div class="overlay overlay--vignette"></div>
+  <div class="cursor" id="cursor"><span class="cursor__cross"></span></div>
+
+  <header class="statusbar">
+    <div class="statusbar__left">
+      <span class="statusbar__dot"></span>
+      <span>REC</span>
+      <span class="statusbar__sep">·</span>
+      <span>CORNER</span>
+      <span class="statusbar__sep">·</span>
+      <span>ISSUE NO.001</span>
+    </div>
+    <div class="statusbar__right">
+      <span id="clock">--:--:--</span>
+      <span class="statusbar__sep">·</span>
+      <a class="statusbar__btn" href="./index.html">← home</a>
+      <button class="statusbar__btn" id="themeBtn" type="button">▣</button>
+    </div>
+  </header>
+
+  <main class="main">
+    <a class="back" href="./index.html">← 返回主页</a>
+    <h1 class="h">角</h1>
+    <p class="sub">// CORNER · 隐 藏 角 落</p>
+    <div class="divider"></div>
+    
+      <p class="easter">你找到这里了。
+
+这里什么都没写。
+又好像什么都写过了。
+
+▓░░▓░▓▓░░▓░▓░░░▓░▓░░░░▓░░▓░▓░░░▓░▓▓▓░▓░░▓▓░░▓░▓░░▓░▓░░░▓▓░▓▓░░░▓░▓░▓▓░░▓░░▓░░▓░░▓░░░▓░▓░░░░▓
+
+如果你正在读这一行，
+那么今天的你已经
+走过了我所有主页的边角。
+
+← 返回主页去吧。那里有灯。</p>
+    
+  </main>
+
+  <footer class="colophon">
+    <span>© mimi. / mmxxvi</span>
+    <span>corner · printed on the internet</span>
+  </footer>
+
+  <script>
+  (() => {
+    const THEMES = ['paper','ink','snow','copper'];
+    const LABELS = {paper:'米色',ink:'夜墨',snow:'雪',copper:'铜版'};
+    const STORAGE = 'mimi.theme';
+    function apply(n){
+      if (!THEMES.includes(n)) n='paper';
+      document.documentElement.setAttribute('data-theme', n);
+      const b=document.getElementById('themeBtn');
+      if(b) b.title='纸张: '+LABELS[n];
+      try{localStorage.setItem(STORAGE,n);}catch(e){}
+    }
+    let saved='paper';
+    try{saved=localStorage.getItem(STORAGE)||'paper';}catch(e){}
+    apply(saved);
+    document.getElementById('themeBtn').addEventListener('click',()=>{
+      const cur=document.documentElement.getAttribute('data-theme')||'paper';
+      apply(THEMES[(THEMES.indexOf(cur)+1)%THEMES.length]);
+    });
+    document.addEventListener('keydown',(e)=>{
+      if(e.key>='1'&&e.key<='4'){apply(THEMES[+e.key-1]);}
+    });
+
+    const c=document.getElementById('clock');
+    if(c){
+      const t=()=>{const d=new Date(),p=n=>String(n).padStart(2,'0');c.textContent=p(d.getHours())+':'+p(d.getMinutes())+':'+p(d.getSeconds());};
+      t();setInterval(t,1000);
+    }
+
+    const cur=document.getElementById('cursor');
+    if(cur && !matchMedia('(hover: none)').matches){
+      let tx=innerWidth/2,ty=innerHeight/2,cx=tx,cy=ty;
+      addEventListener('mousemove',e=>{tx=e.clientX;ty=e.clientY;});
+      const loop=()=>{cx+=(tx-cx)*0.55;cy+=(ty-cy)*0.55;cur.style.transform='translate('+cx+'px,'+cy+'px) translate(-50%,-50%)';requestAnimationFrame(loop);};
+      loop();
+      addEventListener('mouseleave',()=>cur.style.opacity='0');
+      addEventListener('mouseenter',()=>cur.style.opacity='1');
+    }
+  })();
+  </script>
+</body>
+</html>

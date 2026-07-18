@@ -1,0 +1,9 @@
+.DS_Store
+Thumbs.db
+
+# Hexo's generated output is assembled by the Pages workflow.
+blog/hexo-new/public/
+blog/hexo-new/node_modules/
+blog/hexo-new/db.json
+blog/hexo-new/test-repo/
+_site/

@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="paper">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>mimi. / poetry in noise</title>
+  <meta name="description" content="我把噪音折成信，寄给未读的人。" />
+  <meta name="theme-color" content="#f1e6cf" />
+
+  <!-- 字体：fonts.loli.net（国内镜像） -->
+  <link rel="preconnect" href="https://fonts.loli.net" crossorigin />
+  <link
+    href="https://fonts.loli.net/css2?family=Press+Start+2P&family=VT323&family=Silkscreen:wght@400;700&family=Departure+Mono&family=DM+Serif+Display:ital@0;1&family=ZCOOL+XiaoWei&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=Bebas+Neue&family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&family=Manrope:wght@300;400;500;700&display=swap"
+    rel="stylesheet"
+    crossorigin="anonymous"
+  />
+
+  <link rel="stylesheet" href="./styles.css?v=12" />
+</head>
+<body>
+  <!-- 覆盖层（噪点 / 半色调 / 扫描线 / 暗角） -->
+  <div class="overlay overlay--halftone" aria-hidden="true"></div>
+  <div class="overlay overlay--grain" aria-hidden="true"></div>
+  <div class="overlay overlay--scanlines" aria-hidden="true"></div>
+  <div class="overlay overlay--vignette" aria-hidden="true"></div>
+
+  <!-- 鼠标墨迹 canvas -->
+  <canvas id="ink" aria-hidden="true"></canvas>
+
+  <!-- 像素光标 -->
+  <div class="cursor" id="cursor" aria-hidden="true">
+    <span class="cursor__cross"></span>
+  </div>
+
+  <!-- 拼贴皮肤专用装饰元素（仅 collage 主题可见） -->
+  <div class="deco deco--circle" aria-hidden="true"></div>
+  <div class="deco deco--triangle" aria-hidden="true"></div>
+  <div class="deco deco--stamp" aria-hidden="true">EXPERIMENT<br>NO.001<br>★ ★ ★</div>
+  <div class="deco deco--cross" aria-hidden="true">+</div>
+  <div class="deco deco--tape" aria-hidden="true">— FRAGMENT 001 / ANTI-PORTFOLIO —</div>
+  <div class="deco deco--x" aria-hidden="true">✕</div>
+
+  <!-- ============== 顶部状态栏 ============== -->
+  <header class="statusbar" role="banner">
+    <div class="statusbar__left">
+      <span class="statusbar__dot" data-state="rec" id="recDot"></span>
+      <span class="statusbar__label">REC</span>
+      <span class="statusbar__sep">·</span>
+      <span class="statusbar__label">ISSUE NO.001</span>
+      <span class="statusbar__sep">·</span>
+      <span class="statusbar__label" id="greet">—</span>
+    </div>
+    <div class="statusbar__right">
+      <span class="statusbar__bars" id="noiseMeter" aria-label="噪音频谱">
+        <span class="statusbar__bar"></span>
+        <span class="statusbar__bar"></span>
+        <span class="statusbar__bar"></span>
+        <span class="statusbar__bar"></span>
+        <span class="statusbar__bar"></span>
+        <span class="statusbar__bar"></span>
+        <span class="statusbar__bar"></span>
+        <span class="statusbar__bar"></span>
+      </span>
+      <span class="statusbar__sep">·</span>
+      <span class="statusbar__label" id="clock">--:--:--</span>
+      <span class="statusbar__sep">·</span>
+      <span class="statusbar__label">PAPER 01 / 01</span>
+      <span class="statusbar__sep">·</span>
+      <button class="statusbar__btn" id="themeBtn" type="button" title="切换纸张 (1-4)">▣</button>
+      <button class="statusbar__btn" id="helpBtn" type="button" title="帮助 (?)">?</button>
+    </div>
+  </header>
+
+  <!-- 滚动 marquee（很薄） -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee__track">
+      <span>✦ 欢迎 ✦ 点击印章可以折一封 ASCII 信 ✦ 票根会带你去往别处 ✦ 1-6 切换纸张 ✦ ? 打开帮助 ✦ 欢迎 ✦ 欢迎 ✦ 欢迎 ✦ 欢迎 ✦ 欢迎 ✦ </span>
+      <span>✦ 欢迎 ✦ 点击印章可以折一封 ASCII 信 ✦ 票根会带你去往别处 ✦ 1-6 切换纸张 ✦ ? 打开帮助 ✦ 欢迎 ✦ 欢迎 ✦ 欢迎 ✦ 欢迎 ✦ 欢迎 ✦ </span>
+    </div>
+  </div>
+
+  <!-- ============== 主舞台：一屏 ============== -->
+  <main class="cover">
+
+    <!-- 左：名字 + 句子 + 操作 -->
+    <section class="cover__left">
+      <div class="meta">
+        <span class="pixel">/ 写作者 / 制作者 /</span>
+        <span class="pixel">/ somewhere between servers /</span>
+      </div>
+
+      <h1 class="title">
+        <span class="line line--1" data-typed>mimi.</span>
+        <span class="line line--2" data-typed data-typed-delay="420">poetry<span class="amp">&amp;</span>noise</span>
+      </h1>
+
+      <p class="lede" data-typed data-typed-delay="780">我把噪音折成信，寄给未读的人。</p>
+      <p class="lede lede--en" data-typed data-typed-delay="1080">i fold the noise into letters for those who haven't read me yet.</p>
+
+      <div class="actions">
+        <a href="#about" class="btn btn--stamp" data-typed data-typed-delay="1480">↓ 读一些</a>
+        <a href="#contact" class="btn btn--ghost" data-typed data-typed-delay="1680">↗ 联络</a>
+        <button class="btn btn--ink" id="letterBtn" type="button" data-typed data-typed-delay="1880" title="点印章也行">✉ 折一封</button>
+      </div>
+    </section>
+
+    <!-- 印章浮在 cover 右上角，两栏交界处（可点击 → 折信） -->
+    <button class="stamp" id="stamp" type="button" aria-label="折一封 ASCII 信">
+      <span>RECEIVED</span>
+      <small>2026.07.17</small>
+    </button>
+
+    <!-- 右：关于 / 作品 / 联络 / 去往 四块 -->
+    <aside class="cover__right">
+
+      <article class="block block--about" id="about">
+        <header class="block__head">
+          <span class="pixel">[ 01 ]</span>
+          <span class="pixel">/ 关于 /</span>
+        </header>
+        <p id="aboutText">在云端和云端之间，<br/>我租了一间带噪点的房间。<br/>信号差时，<br/>我以为是诗意。</p>
+      </article>
+
+      <article class="block" id="works" data-block-title="SELECTED\nFRAGMENTS">
+        <header class="block__head">
+          <span class="pixel">[ 02 ]</span>
+          <span class="pixel">/ 作品 /</span>
+          <span class="pixel">/ // 001 — // 004 /</span>
+        </header>
+        <ol class="works" id="worksList">
+          <li class="work" data-work="001">
+            <span class="works__no pixel">// 001</span>
+            <span class="works__t">一本不会出版的小书</span>
+            <span class="works__m pixel">2025 · 纸</span>
+          </li>
+          <li class="work" data-work="002">
+            <span class="works__no pixel">// 002</span>
+            <span class="works__t">给陌生人的 100 封信</span>
+            <span class="works__m pixel">2024 · 邮政</span>
+          </li>
+          <li class="work" data-work="003">
+            <span class="works__no pixel">// 003</span>
+            <span class="works__t">噪音作为材料</span>
+            <span class="works__m pixel">2024 · 音频</span>
+          </li>
+          <li class="work" data-work="004">
+            <span class="works__no pixel">// 004</span>
+            <span class="works__t">凌晨四点的网页</span>
+            <span class="works__m pixel">2023 · web</span>
+          </li>
+        </ol>
+      </article>
+
+      <article class="block" id="contact" data-block-title="SAY\nHELLO">
+        <header class="block__head">
+          <span class="pixel">[ 03 ]</span>
+          <span class="pixel">/ 联络 /</span>
+        </header>
+        <div class="contact">
+          <div class="contact__row">
+            <span class="contact__key pixel">→</span>
+            <a class="contact__val" href="mailto:hi@mimi.ooo">hi@mimi.ooo</a>
+          </div>
+          <div class="contact__row">
+            <span class="contact__key pixel">→</span>
+            <span class="contact__val">@mimi / are.na / github</span>
+          </div>
+          <div class="contact__row">
+            <span class="contact__key pixel">→</span>
+            <span class="contact__val">寄信不必自我介绍。</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- [04] 去往：6 个票根入口 -->
+      <article class="block block--routes" id="routes">
+        <header class="block__head">
+          <span class="pixel">[ 04 ]</span>
+          <span class="pixel">/ 去往 /</span>
+          <span class="pixel">/ more /</span>
+        </header>
+        <nav class="tickets" aria-label="去往其他页面">
+          <a class="tkt" href="./journal.html" data-page="journal">
+            <span class="tkt__no pixel">01</span>
+            <span class="tkt__ico" aria-hidden="true">▤</span>
+            <span class="tkt__t">日志</span>
+            <span class="tkt__en">journal</span>
+            <span class="tkt__arr">→</span>
+          </a>
+          <a class="tkt" href="./reading.html" data-page="reading">
+            <span class="tkt__no pixel">02</span>
+            <span class="tkt__ico" aria-hidden="true">▥</span>
+            <span class="tkt__t">读</span>
+            <span class="tkt__en">reading</span>
+            <span class="tkt__arr">→</span>
+          </a>
+          <a class="tkt" href="./sounds.html" data-page="sounds">
+            <span class="tkt__no pixel">03</span>
+            <span class="tkt__ico" aria-hidden="true">▦</span>
+            <span class="tkt__t">听</span>
+            <span class="tkt__en">sounds</span>
+            <span class="tkt__arr">→</span>
+          </a>
+          <a class="tkt" href="./gallery.html" data-page="gallery">
+            <span class="tkt__no pixel">04</span>
+            <span class="tkt__ico" aria-hidden="true">▧</span>
+            <span class="tkt__t">集</span>
+            <span class="tkt__en">gallery</span>
+            <span class="tkt__arr">→</span>
+          </a>
+          <a class="tkt" href="./corner.html" data-page="corner">
+            <span class="tkt__no pixel">05</span>
+            <span class="tkt__ico" aria-hidden="true">◇</span>
+            <span class="tkt__t">角</span>
+            <span class="tkt__en">corner</span>
+            <span class="tkt__arr">→</span>
+          </a>
+          <a class="tkt" href="./write.html" data-page="write">
+            <span class="tkt__no pixel">06</span>
+            <span class="tkt__ico" aria-hidden="true">✉</span>
+            <span class="tkt__t">寄</span>
+            <span class="tkt__en">write</span>
+            <span class="tkt__arr">→</span>
+          </a>
+          <a class="tkt" href="/blog/" data-page="blog">
+            <span class="tkt__no pixel">07</span>
+            <span class="tkt__ico" aria-hidden="true">▧</span>
+            <span class="tkt__t">博客</span>
+            <span class="tkt__en">blog</span>
+            <span class="tkt__arr">→</span>
+          </a>
+        </nav>
+      </article>
+
+    </aside>
+  </main>
+
+  <!-- ============== COLOPHON ============== -->
+  <footer class="colophon">
+    <div class="colophon__line"></div>
+    <div class="colophon__grid">
+      <span class="pixel">© mimi. / mmxxvi</span>
+      <span class="pixel">set in press start 2p &amp; 站酷小薇</span>
+      <span class="pixel">printed on the internet</span>
+      <span class="pixel">no cookies. no tracking.</span>
+    </div>
+  </footer>
+
+  <!-- ============== 弹层：折信 ============== -->
+  <div class="modal" id="letterModal" hidden aria-hidden="true">
+    <div class="modal__back" data-close></div>
+    <div class="modal__panel" role="dialog" aria-labelledby="letterTitle" aria-modal="true">
+      <header class="modal__head">
+        <span class="pixel">// LETTER //</span>
+        <button class="modal__close" type="button" data-close aria-label="关闭">×</button>
+      </header>
+      <h2 class="modal__title" id="letterTitle">折一封信</h2>
+      <p class="modal__hint">在下方写下几行字，我替你折成 ASCII 信纸。</p>
+      <textarea class="modal__input" id="letterInput" rows="3" maxlength="240" placeholder="说点什么都行 …"></textarea>
+      <div class="modal__actions">
+        <button class="btn btn--stamp" id="foldBtn" type="button">↳ 折成信</button>
+        <button class="btn btn--ghost" type="button" data-close>取消</button>
+      </div>
+      <pre class="modal__paper" id="letterPaper" hidden></pre>
+    </div>
+  </div>
+
+  <!-- ============== 弹层：作品展开 ============== -->
+  <div class="modal" id="workModal" hidden aria-hidden="true">
+    <div class="modal__back" data-close></div>
+    <div class="modal__panel" role="dialog" aria-modal="true">
+      <header class="modal__head">
+        <span class="pixel" id="workNo">// 000</span>
+        <button class="modal__close" type="button" data-close aria-label="关闭">×</button>
+      </header>
+      <h2 class="modal__title" id="workTitle">—</h2>
+      <p class="modal__hint" id="workMeta">—</p>
+      <p class="modal__body" id="workBody">—</p>
+    </div>
+  </div>
+
+  <!-- ============== 弹层：帮助 ============== -->
+  <div class="modal" id="helpModal" hidden aria-hidden="true">
+    <div class="modal__back" data-close></div>
+    <div class="modal__panel" role="dialog" aria-modal="true">
+      <header class="modal__head">
+        <span class="pixel">// HELP //</span>
+        <button class="modal__close" type="button" data-close aria-label="关闭">×</button>
+      </header>
+      <h2 class="modal__title">索引</h2>
+      <dl class="help">
+        <dt><kbd>1</kbd> / <kbd>2</kbd> / <kbd>3</kbd> / <kbd>4</kbd> / <kbd>5</kbd> / <kbd>6</kbd></dt><dd>切换皮肤：米色 / 夜墨 / 雪 / 铜版 / 夜报 / 拼贴</dd>
+        <dt><kbd>Click</kbd> 印章</dt><dd>折一封 ASCII 信</dd>
+        <dt><kbd>Click</kbd> 作品</dt><dd>看作品的简介</dd>
+        <dt><kbd>2×Click</kbd> 标题</dt><dd>字符乱码彩蛋</dd>
+        <dt><kbd>↑↑↓↓←→←→BA</kbd></dt><dd>解锁隐藏协议</dd>
+        <dt><kbd>?</kbd></dt><dd>打开 / 关闭本帮助</dd>
+        <dt><kbd>Esc</kbd></dt><dd>关闭任何弹层</dd>
+        <dt>鼠标移动</dt><dd>留下像素墨迹</dd>
+      </dl>
+    </div>
+  </div>
+
+  <!-- ============== 页面切换：噪点扫描过渡 ============== -->
+  <div class="boot" id="boot" aria-hidden="true">
+    <div class="boot__scan"></div>
+    <div class="boot__noise"></div>
+    <div class="boot__line"></div>
+    <div class="boot__msg" id="bootMsg">LOADING…</div>
+  </div>
+
+  <!-- ============== Konami 彩蛋 ============== -->
+  <div class="easter" id="easter" hidden>
+    <pre class="easter__art" id="easterArt"></pre>
+    <div class="easter__msg">// secret protocol unlocked //<br/>「噪点里的诗」有一个隐藏层。<br/>再按一次 <kbd>Esc</kbd> 或 <kbd>5</kbd> 关闭。</div>
+  </div>
+
+  <script src="./main.js?v=13" defer></script>
+</body>
+</html>
