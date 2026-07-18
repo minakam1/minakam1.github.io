@@ -1,0 +1,1051 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <!-- 预加载字体 -->
+  <link rel="preload" href="/fonts/hwmc.otf" as="font" type="font/opentype" crossorigin="anonymous">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="ldy">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="实时录音与编辑App开发文档版本：1.0最后更新：2026-03-09    1. 项目概述1.1 背景与目标本项目旨在开发一款跨平台的录音应用，核心特色包括：  实时编辑：在录音过程中或录音后，可对任意音频段落进行删除、重录、插入、排序等操作。 撤回上一句：支持撤销最近一次录音或编辑动作（可多次撤回）。 实时语音识别：在录音同时，通过端侧引擎将语音实时转换为文字，并与音频段落同步展示，便于基于文">
+<meta property="og:type" content="article">
+<meta property="og:title" content="想做个好！用！的录音">
+<meta property="og:url" content="http://example.com/2026/03/09/agent/index.html">
+<meta property="og:site_name" content="杂音堆积处">
+<meta property="og:description" content="实时录音与编辑App开发文档版本：1.0最后更新：2026-03-09    1. 项目概述1.1 背景与目标本项目旨在开发一款跨平台的录音应用，核心特色包括：  实时编辑：在录音过程中或录音后，可对任意音频段落进行删除、重录、插入、排序等操作。 撤回上一句：支持撤销最近一次录音或编辑动作（可多次撤回）。 实时语音识别：在录音同时，通过端侧引擎将语音实时转换为文字，并与音频段落同步展示，便于基于文">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2026-03-09T11:30:25.000Z">
+<meta property="article:modified_time" content="2026-03-18T13:18:32.491Z">
+<meta property="article:author" content="ldy">
+<meta property="article:tag" content="coding">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>想做个好！用！的录音 - 杂音堆积处</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/custom-font.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0,"enabled":true},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>杂音堆积处</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content (desktop) -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/%E7%9B%B8%E5%86%8C/" target="_self">
+                
+                <span>相册</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                
+                <span>图片都是我拍的</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-link-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-link-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-link-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-link-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/%E7%9B%B8%E5%86%8C/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-link-fill"></i>
+                  <span>相册</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-link-fill"></i>
+                  <span>图片都是我拍的</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>Search</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="Light"
+               data-label-dark="Dark">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">Dark</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+<div id="banner" class="banner" parallax=true data-random-banner='/img/random/111%20(1).JPG'
+     style="background: url('/img/random/111%20(1).JPG') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3);">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="想做个好！用！的录音"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        ldy
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-03-09 19:30" pubdate>
+          March 9, 2026 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          6.7k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          57 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+
+  <script>
+    (function() {
+      var banner = document.getElementById('banner');
+      if (!banner) return;
+      var list = banner.getAttribute('data-random-banner');
+      if (!list) return;
+      list = list.split(',').filter(Boolean);
+      if (list.length === 0) return;
+      var pick = list[Math.floor(Math.random() * list.length)];
+      banner.style.background = 'url(' + pick + ') no-repeat center center';
+      banner.style.backgroundSize = 'cover';
+    })();
+  </script>
+
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">想做个好！用！的录音</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="实时录音与编辑App开发文档"><a href="#实时录音与编辑App开发文档" class="headerlink" title="实时录音与编辑App开发文档"></a>实时录音与编辑App开发文档</h1><p><strong>版本</strong>：1.0<br><strong>最后更新</strong>：2026-03-09  </p>
+<hr>
+<h2 id="1-项目概述"><a href="#1-项目概述" class="headerlink" title="1. 项目概述"></a>1. 项目概述</h2><h3 id="1-1-背景与目标"><a href="#1-1-背景与目标" class="headerlink" title="1.1 背景与目标"></a>1.1 背景与目标</h3><p>本项目旨在开发一款跨平台的录音应用，核心特色包括：</p>
+<ul>
+<li><strong>实时编辑</strong>：在录音过程中或录音后，可对任意音频段落进行删除、重录、插入、排序等操作。</li>
+<li><strong>撤回上一句</strong>：支持撤销最近一次录音或编辑动作（可多次撤回）。</li>
+<li><strong>实时语音识别</strong>：在录音同时，通过端侧引擎将语音实时转换为文字，并与音频段落同步展示，便于基于文本的内容定位和编辑。</li>
+<li><strong>多平台支持</strong>：基于Flutter框架，覆盖iOS、Android、Web及桌面端（Windows&#x2F;macOS）。</li>
+</ul>
+<p><strong>性能优先</strong>是贯穿设计的核心原则，所有功能需保证低延迟、低资源消耗，并在端侧完成隐私数据处理。</p>
+<h3 id="1-2-目标用户"><a href="#1-2-目标用户" class="headerlink" title="1.2 目标用户"></a>1.2 目标用户</h3><ul>
+<li>播客&#x2F;访谈录制者</li>
+<li>语言学习者</li>
+<li>会议记录人员</li>
+<li>创意工作者</li>
+</ul>
+<hr>
+<h2 id="2-技术栈概览"><a href="#2-技术栈概览" class="headerlink" title="2. 技术栈概览"></a>2. 技术栈概览</h2><table>
+<thead>
+<tr>
+<th>领域</th>
+<th>技术选择</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>跨平台框架</td>
+<td>Flutter 3.x</td>
+</tr>
+<tr>
+<td>状态管理</td>
+<td>BLoC &#x2F; Riverpod（视团队偏好）</td>
+</tr>
+<tr>
+<td>音频录制与播放</td>
+<td><code>flutter_sound</code> 或自定义原生插件（需获取实时PCM回调）</td>
+</tr>
+<tr>
+<td>实时语音识别</td>
+<td><strong>Moonshine</strong>（端侧，跨平台C++核心，MIT协议）</td>
+</tr>
+<tr>
+<td>音频处理（编辑&#x2F;导出）</td>
+<td>分段存储 + FFmpeg（用于拼接导出）</td>
+</tr>
+<tr>
+<td>本地存储</td>
+<td>文件系统（音频分段）+ SQLite（元数据）</td>
+</tr>
+<tr>
+<td>波形绘制</td>
+<td>自定义绘制（基于振幅数据）或使用 <code>fl_chart</code> 扩展</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="3-整体架构"><a href="#3-整体架构" class="headerlink" title="3. 整体架构"></a>3. 整体架构</h2><h3 id="3-1-分层架构图（文字描述）"><a href="#3-1-分层架构图（文字描述）" class="headerlink" title="3.1 分层架构图（文字描述）"></a>3.1 分层架构图（文字描述）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs bash">┌─────────────────────────────────────────────────────────────┐<br>│                         UI层 (Flutter Widgets)                │<br>│  - 录音控制面板、波形显示、段落列表、文字展示、撤回/重做按钮        │<br>└─────────────────────────────────────────────────────────────┘<br>                              │<br>                              ▼<br>┌─────────────────────────────────────────────────────────────┐<br>│                      逻辑层 (BLoC/Provider)                   │<br>│  - 管理录音状态、段落列表、操作历史（命令模式）                    │<br>│  - 协调音频引擎与识别引擎的数据流                                 │<br>└─────────────────────────────────────────────────────────────┘<br>                              │<br>                              ▼<br>┌─────────────────────────────────────────────────────────────┐<br>│                     音频引擎层 (原生模块)                      │<br>│  - 录音模块：获取PCM流，分段存储音频文件                          │<br>│  - 播放模块：播放指定段落或混合播放                              │<br>│  - 波形生成：实时计算振幅数据                                    │<br>└─────────────────────────────────────────────────────────────┘<br>                              │<br>                              ▼<br>┌─────────────────────────────────────────────────────────────┐<br>│                     识别引擎层 (Moonshine)                     │<br>│  - 接收PCM流，返回实时文字片段                                   │<br>│  - 支持增量识别（缓存机制）                                      │<br>└─────────────────────────────────────────────────────────────┘<br>                              │<br>                              ▼<br>┌─────────────────────────────────────────────────────────────┐<br>│                       数据层 (本地)                            │<br>│  - 音频分段文件（.wav/.aac）                                    │<br>│  - 项目元数据数据库（SQLite）                                   │<br>└─────────────────────────────────────────────────────────────┘<br></code></pre></td></tr></table></figure>
+
+<h3 id="3-2-核心数据模型"><a href="#3-2-核心数据模型" class="headerlink" title="3.2 核心数据模型"></a>3.2 核心数据模型</h3><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs dart"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AudioSegment</span> </span>&#123;<br>  <span class="hljs-keyword">final</span> <span class="hljs-built_in">String</span> id;               <span class="hljs-comment">// UUID</span><br>  <span class="hljs-keyword">final</span> <span class="hljs-built_in">String</span> filePath;          <span class="hljs-comment">// 音频文件路径</span><br>  <span class="hljs-built_in">double</span> startTime;               <span class="hljs-comment">// 在整个项目中的起始时间（秒）</span><br>  <span class="hljs-built_in">double</span> duration;                <span class="hljs-comment">// 时长</span><br>  <span class="hljs-built_in">List</span>&lt;<span class="hljs-built_in">double</span>&gt; waveformPeaks;     <span class="hljs-comment">// 波形峰值（用于显示）</span><br>  <span class="hljs-built_in">String</span> transcript;              <span class="hljs-comment">// 实时识别的文字内容</span><br>  <span class="hljs-comment">// ... 其他元数据</span><br>&#125;<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Project</span> </span>&#123;<br>  <span class="hljs-keyword">final</span> <span class="hljs-built_in">String</span> id;<br>  <span class="hljs-built_in">List</span>&lt;AudioSegment&gt; segments;    <span class="hljs-comment">// 有序段落列表</span><br>  <span class="hljs-built_in">DateTime</span> createdAt;<br>  <span class="hljs-built_in">DateTime</span> modifiedAt;<br>  <span class="hljs-comment">// ... 项目设置（采样率、格式等）</span><br>&#125;<br><br><span class="hljs-comment">// 操作历史记录（命令模式）</span><br><span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">EditCommand</span> </span>&#123;<br>  <span class="hljs-keyword">void</span> apply(Project project);<br>  <span class="hljs-keyword">void</span> undo(Project project);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="4-模块设计与实现"><a href="#4-模块设计与实现" class="headerlink" title="4. 模块设计与实现"></a>4. 模块设计与实现</h2><h3 id="4-1-录音模块"><a href="#4-1-录音模块" class="headerlink" title="4.1 录音模块"></a>4.1 录音模块</h3><p><strong>职责</strong>：采集麦克风音频，提供实时PCM回调，自动分段存储。</p>
+<p><strong>技术实现</strong>：</p>
+<ul>
+<li>使用 <code>flutter_sound</code> 的 <code>Recorder</code> 类，开启 <code>enableVoiceProcessing</code> 并设置回调频率（如每100ms回调一次）。</li>
+<li>在回调中获取 <code>buffer</code>，同时写入当前段落文件和传递给识别模块。</li>
+<li>自动分段逻辑：可基于静音检测（振幅低于阈值持续X秒）或用户手动打点。</li>
+<li>每段结束时，关闭文件并创建新的 <code>AudioSegment</code> 对象，更新UI。</li>
+</ul>
+<p><strong>性能要点</strong>：</p>
+<ul>
+<li>音频格式统一为 <strong>16kHz采样率、单声道、PCM 16bit</strong>，这是Moonshine推荐的输入格式，同时可降低存储和计算开销。</li>
+<li>写入文件使用异步IO，避免阻塞录音线程。</li>
+</ul>
+<h3 id="4-2-Moonshine实时识别模块"><a href="#4-2-Moonshine实时识别模块" class="headerlink" title="4.2 Moonshine实时识别模块"></a>4.2 Moonshine实时识别模块</h3><p><strong>职责</strong>：将PCM流实时转换为文字，并返回带时间戳的片段。</p>
+<h4 id="4-2-1-Moonshine集成步骤（以Flutter插件形式）"><a href="#4-2-1-Moonshine集成步骤（以Flutter插件形式）" class="headerlink" title="4.2.1 Moonshine集成步骤（以Flutter插件形式）"></a>4.2.1 Moonshine集成步骤（以Flutter插件形式）</h4><p>由于Moonshine官方提供C++核心及iOS&#x2F;Android示例，需要封装为Flutter插件。</p>
+<ol>
+<li><strong>创建Flutter插件</strong>（如 <code>moonshine_flutter</code>）：<ul>
+<li>在 <code>ios/</code> 和 <code>android/</code> 目录下分别集成Moonshine的native库。</li>
+</ul>
+</li>
+<li><strong>iOS集成</strong>：<ul>
+<li>下载Moonshine iOS示例，将 <code>Moonshine.xcframework</code> 添加到插件Xcode项目。</li>
+<li>创建Swift类封装识别器，通过<code>FlutterMethodChannel</code>与Dart通信。</li>
+</ul>
+</li>
+<li><strong>Android集成</strong>：<ul>
+<li>将Moonshine的C++库通过CMake或预编译 <code>.so</code> 集成到Android模块。</li>
+<li>使用JNI封装调用，同样通过MethodChannel暴露给Dart。</li>
+</ul>
+</li>
+<li><strong>Dart API设计</strong>：</li>
+</ol>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs dart"><span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MoonshineRecognizer</span> </span>&#123;<br>  Future&lt;<span class="hljs-keyword">void</span>&gt; initialize(&#123;<span class="hljs-keyword">required</span> <span class="hljs-built_in">String</span> modelPath&#125;); <span class="hljs-comment">// 加载模型</span><br>  <span class="hljs-keyword">void</span> startListening();                                 <span class="hljs-comment">// 开始识别（需持续传入PCM）</span><br>  <span class="hljs-keyword">void</span> stopListening();                                  <span class="hljs-comment">// 停止识别</span><br>  Stream&lt;RecognitionResult&gt; <span class="hljs-keyword">get</span> onPartialResult;         <span class="hljs-comment">// 实时结果流</span><br>  Stream&lt;RecognitionResult&gt; <span class="hljs-keyword">get</span> onFinalResult;           <span class="hljs-comment">// 最终结果流（句子结束）</span><br>&#125;<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">RecognitionResult</span> </span>&#123;<br>  <span class="hljs-keyword">final</span> <span class="hljs-built_in">String</span> text;<br>  <span class="hljs-keyword">final</span> <span class="hljs-built_in">double</span> startTime; <span class="hljs-comment">// 相对录音开始的时间</span><br>  <span class="hljs-keyword">final</span> <span class="hljs-built_in">double</span> endTime;<br>  <span class="hljs-keyword">final</span> <span class="hljs-built_in">bool</span> isFinal;<br>&#125;<br></code></pre></td></tr></table></figure>
+<ol start="5">
+<li><strong>数据传输</strong>：在录音模块的PCM回调中，通过MethodChannel将数据传递给native识别器（或使用共享内存优化）。</li>
+</ol>
+<h4 id="4-2-2-识别结果与段落关联"><a href="#4-2-2-识别结果与段落关联" class="headerlink" title="4.2.2 识别结果与段落关联"></a>4.2.2 识别结果与段落关联</h4><ul>
+<li>识别引擎返回的文本片段带有时间戳，逻辑层根据时间戳将其追加到对应的 <code>AudioSegment</code> 的 <code>transcript</code> 字段。</li>
+<li>如果识别结果是最终结果（句子结束），可将其作为一个独立的“子句”存储，便于后续基于句子的撤回。</li>
+</ul>
+<h4 id="4-2-3-性能优化"><a href="#4-2-3-性能优化" class="headerlink" title="4.2.3 性能优化"></a>4.2.3 性能优化</h4><ul>
+<li><strong>模型选择</strong>：Moonshine提供Tiny、Base、Small、Medium模型。对于移动端，推荐<strong>Tiny或Base</strong>（34MB&#x2F;74MB），延迟&lt;100ms；桌面端可选用Medium（245MB）以获得更高精度。</li>
+<li><strong>缓存机制</strong>：Moonshine内部支持编码器缓存，每次处理新音频时只需处理新增部分，无需重复计算，务必启用。</li>
+<li><strong>降采样</strong>：若系统麦克风默认采样率高，在录音模块提前降采样至16kHz，减少识别模块负担。</li>
+</ul>
+<h3 id="4-3-编辑与撤回模块"><a href="#4-3-编辑与撤回模块" class="headerlink" title="4.3 编辑与撤回模块"></a>4.3 编辑与撤回模块</h3><p><strong>职责</strong>：维护段落列表，支持用户编辑操作，并记录操作历史。</p>
+<p><strong>实现方式</strong>：</p>
+<ul>
+<li>使用<strong>命令模式</strong>封装所有编辑操作（添加段落、删除段落、替换段落、移动顺序等）。</li>
+<li>每次操作生成一个命令对象，执行后推入 <code>undoStack</code>，同时清空 <code>redoStack</code>。</li>
+<li>撤回时弹出栈顶命令，执行其 <code>undo</code> 方法，并推入 <code>redoStack</code>。</li>
+</ul>
+<p><strong>示例命令</strong>：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs dart"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DeleteSegmentCommand</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">EditCommand</span> </span>&#123;<br>  <span class="hljs-keyword">final</span> <span class="hljs-built_in">String</span> segmentId;<br>  AudioSegment? _deletedSegment; <span class="hljs-comment">// 保存快照用于撤销</span><br><br>  <span class="hljs-keyword">void</span> apply(Project project) &#123;<br>    _deletedSegment = project.segments.firstWhere((s) =&gt; s.id == segmentId);<br>    project.segments.removeWhere((s) =&gt; s.id == segmentId);<br>  &#125;<br><br>  <span class="hljs-keyword">void</span> undo(Project project) &#123;<br>    <span class="hljs-keyword">if</span> (_deletedSegment != <span class="hljs-keyword">null</span>) &#123;<br>      project.segments.insertAtOriginalPosition(_deletedSegment);<br>    &#125;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>撤回与重做UI</strong>：顶部工具栏显示可撤销&#x2F;重做次数，按钮状态实时更新。</p>
+<h3 id="4-4-播放与波形模块"><a href="#4-4-播放与波形模块" class="headerlink" title="4.4 播放与波形模块"></a>4.4 播放与波形模块</h3><ul>
+<li><strong>播放</strong>：使用音频播放器支持播放指定段落（<code>flutter_sound</code> 或 <code>audioplayers</code>）。若需连续播放多个段落，可依次播放或先拼接再播放（后者可能涉及临时文件）。</li>
+<li><strong>波形绘制</strong>：<ul>
+<li>录制时：从PCM回调计算振幅（如取绝对值平均值），每50ms更新一次波形图。</li>
+<li>回放时：从存储的 <code>waveformPeaks</code> 绘制，无需重新计算。</li>
+<li>使用 <code>CustomPainter</code> 在Canvas上绘制波形条。</li>
+</ul>
+</li>
+</ul>
+<h3 id="4-5-导出模块"><a href="#4-5-导出模块" class="headerlink" title="4.5 导出模块"></a>4.5 导出模块</h3><p><strong>职责</strong>：将段落列表按顺序拼接，导出为单一音频文件（MP3或WAV）。</p>
+<p><strong>实现</strong>：</p>
+<ul>
+<li>使用FFmpeg命令行工具或Flutter FFmpeg封装库，将所有分段文件列表拼接。</li>
+<li>若需要格式转换，一并完成。</li>
+<li>导出进度通过Stream反馈给UI。</li>
+</ul>
+<hr>
+<h2 id="5-多平台注意事项"><a href="#5-多平台注意事项" class="headerlink" title="5. 多平台注意事项"></a>5. 多平台注意事项</h2><h3 id="5-1-iOS"><a href="#5-1-iOS" class="headerlink" title="5.1 iOS"></a>5.1 iOS</h3><ul>
+<li><strong>权限</strong>：需在 <code>Info.plist</code> 添加麦克风权限描述（<code>NSMicrophoneUsageDescription</code>）。</li>
+<li><strong>音频会话</strong>：确保录音时设置 <code>AVAudioSessionCategoryPlayAndRecord</code>，并启用扬声器输出。</li>
+<li><strong>后台模式</strong>：若需后台录音，需勾选 <code>Audio, AirPlay, and Picture in Picture</code> 后台模式。</li>
+</ul>
+<h3 id="5-2-Android"><a href="#5-2-Android" class="headerlink" title="5.2 Android"></a>5.2 Android</h3><ul>
+<li><strong>权限</strong>：动态申请 <code>RECORD_AUDIO</code> 权限。</li>
+<li><strong>音频焦点</strong>：正确处理音频焦点变化，避免与其他应用冲突。</li>
+<li><strong>低延迟</strong>：在 <code>AndroidManifest.xml</code> 中为MainActivity添加 <code>android:hardwareAccelerated=&quot;true&quot;</code>。</li>
+</ul>
+<h3 id="5-3-Web"><a href="#5-3-Web" class="headerlink" title="5.3 Web"></a>5.3 Web</h3><ul>
+<li><strong>录音</strong>：使用Web Audio API，通过 <code>dart:html</code> 或 <code>package:web</code> 调用。</li>
+<li><strong>Moonshine</strong>：Moonshine目前未提供官方WebAssembly版本。可选方案：<ul>
+<li>自行编译C++核心为WASM，并提供JS桥接。</li>
+<li>如果Web不是核心目标，可暂缓或降级使用浏览器原生Web Speech API（但非端侧，隐私性降低）。</li>
+</ul>
+</li>
+</ul>
+<h3 id="5-4-桌面端（Windows-macOS）"><a href="#5-4-桌面端（Windows-macOS）" class="headerlink" title="5.4 桌面端（Windows&#x2F;macOS）"></a>5.4 桌面端（Windows&#x2F;macOS）</h3><ul>
+<li><strong>录音</strong>：桌面平台可使用 <code>flutter_sound</code> 的桌面支持或调用系统API。</li>
+<li><strong>Moonshine</strong>：可直接集成C++库，Windows上使用MSVC编译，macOS上使用Xcode。</li>
+</ul>
+<hr>
+<h2 id="6-性能优化策略"><a href="#6-性能优化策略" class="headerlink" title="6. 性能优化策略"></a>6. 性能优化策略</h2><h3 id="6-1-音频处理优化"><a href="#6-1-音频处理优化" class="headerlink" title="6.1 音频处理优化"></a>6.1 音频处理优化</h3><ul>
+<li><strong>分段存储</strong>：避免单一大文件，编辑时只需操作对应分段，无需重编码。</li>
+<li><strong>波形预计算</strong>：每个段落保存压缩后的波形峰值（如每100ms一个点），避免每次绘制读取文件。</li>
+<li><strong>缓存识别结果</strong>：识别文字与段落绑定，编辑段落时清除对应文字缓存。</li>
+</ul>
+<h3 id="6-2-内存优化"><a href="#6-2-内存优化" class="headerlink" title="6.2 内存优化"></a>6.2 内存优化</h3><ul>
+<li><strong>音频文件流式读写</strong>：不将整个文件加载到内存，使用文件流。</li>
+<li><strong>模型加载</strong>：Moonshine模型文件较大，初始化时一次性加载到内存，后续重复使用。</li>
+<li><strong>及时释放</strong>：停止录音后，释放音频资源和识别引擎。</li>
+</ul>
+<h3 id="6-3-线程管理"><a href="#6-3-线程管理" class="headerlink" title="6.3 线程管理"></a>6.3 线程管理</h3><ul>
+<li><strong>录音线程</strong>：保持高优先级，避免卡顿。</li>
+<li><strong>识别线程</strong>：Moonshine内部可能使用多线程，确保在native层配置合理线程数。</li>
+<li><strong>UI线程</strong>：所有UI更新在主线程，耗时操作（如文件写入、模型加载）放在后台Isolate或原生线程。</li>
+</ul>
+<h3 id="6-4-模型量化与裁剪"><a href="#6-4-模型量化与裁剪" class="headerlink" title="6.4 模型量化与裁剪"></a>6.4 模型量化与裁剪</h3><ul>
+<li>Moonshine支持量化版本（如int8），可进一步减少模型体积和加速推理。如有需要，可自行量化模型。</li>
+</ul>
+<hr>
+<h2 id="7-开发与测试指南"><a href="#7-开发与测试指南" class="headerlink" title="7. 开发与测试指南"></a>7. 开发与测试指南</h2><h3 id="7-1-环境准备"><a href="#7-1-环境准备" class="headerlink" title="7.1 环境准备"></a>7.1 环境准备</h3><ul>
+<li>Flutter SDK 3.x</li>
+<li>各平台原生开发环境（Xcode, Android Studio, VS Code）</li>
+<li>下载Moonshine预训练模型（<a target="_blank" rel="noopener" href="https://github.com/usefulsensors/moonshine%EF%BC%89">https://github.com/usefulsensors/moonshine）</a></li>
+</ul>
+<h3 id="7-2-关键代码示例"><a href="#7-2-关键代码示例" class="headerlink" title="7.2 关键代码示例"></a>7.2 关键代码示例</h3><h4 id="录音与识别协同（Dart层简化）"><a href="#录音与识别协同（Dart层简化）" class="headerlink" title="录音与识别协同（Dart层简化）"></a>录音与识别协同（Dart层简化）</h4><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs dart"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">RecordingBloc</span> </span>&#123;<br>  <span class="hljs-keyword">final</span> MoonshineRecognizer _recognizer;<br>  <span class="hljs-keyword">final</span> AudioRecorder _recorder;<br>  <span class="hljs-keyword">final</span> <span class="hljs-built_in">List</span>&lt;AudioSegment&gt; _segments = [];<br><br>  <span class="hljs-keyword">void</span> startRecording() <span class="hljs-keyword">async</span> &#123;<br>    _recorder.start(<br>      sampleRate: <span class="hljs-number">16000</span>,<br>      onData: (<span class="hljs-built_in">List</span>&lt;<span class="hljs-built_in">int</span>&gt; pcmData) &#123;<br>        <span class="hljs-comment">// 写入当前段落文件</span><br>        _currentSegmentFile.writeAsBytes(pcmData, mode: FileMode.append);<br>        <span class="hljs-comment">// 发送到识别器</span><br>        _recognizer.addAudio(pcmData);<br>      &#125;,<br>    );<br>    _recognizer.onPartialResult.listen((result) &#123;<br>      <span class="hljs-comment">// 更新当前段落的transcript</span><br>      _segments.last.transcript += result.text;<br>      <span class="hljs-comment">// 通知UI更新</span><br>    &#125;);<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="7-3-测试要点"><a href="#7-3-测试要点" class="headerlink" title="7.3 测试要点"></a>7.3 测试要点</h3><ul>
+<li><strong>实时性测试</strong>：录制一段话，观察文字出现延迟（应小于200ms）。</li>
+<li><strong>撤回测试</strong>：执行多次编辑操作，验证撤回&#x2F;重做后状态正确。</li>
+<li><strong>多平台兼容性</strong>：在真实设备上测试录音、识别和导出功能。</li>
+<li><strong>压力测试</strong>：长时间录音（如1小时），监控内存和CPU占用。</li>
+</ul>
+<hr>
+<h2 id="8-常见问题与解决方案"><a href="#8-常见问题与解决方案" class="headerlink" title="8. 常见问题与解决方案"></a>8. 常见问题与解决方案</h2><table>
+<thead>
+<tr>
+<th>问题</th>
+<th>可能原因</th>
+<th>解决方案</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>录音有杂音或断流</td>
+<td>音频会话冲突或缓冲区太小</td>
+<td>调整录音参数，增加缓冲区大小；确保音频焦点唯一</td>
+</tr>
+<tr>
+<td>识别结果延迟大</td>
+<td>模型太大或CPU过载</td>
+<td>换用Tiny模型；启用Moonshine缓存；检查是否降采样至16kHz</td>
+</tr>
+<tr>
+<td>撤回后音频文件未删除</td>
+<td>命令未正确处理文件清理</td>
+<td>在命令的undo中删除对应文件（注意引用计数）</td>
+</tr>
+<tr>
+<td>Web平台无识别</td>
+<td>Moonshine无WASM支持</td>
+<td>降级使用Web Speech API；或暂不支持Web端识别</td>
+</tr>
+<tr>
+<td>导出文件时长不对</td>
+<td>分段时间戳计算错误</td>
+<td>检查每个段落的startTime和duration，确保连续</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="9-未来扩展"><a href="#9-未来扩展" class="headerlink" title="9. 未来扩展"></a>9. 未来扩展</h2><ul>
+<li><strong>云端同步</strong>：将项目文件同步到用户云盘（如iCloud、Google Drive）。</li>
+<li><strong>多轨编辑</strong>：支持同时录制多个音轨（如访谈双方）。</li>
+<li><strong>智能标记</strong>：基于识别文字自动标记关键词或发言人。</li>
+<li><strong>实时翻译</strong>：将识别文字实时翻译为目标语言。</li>
+</ul>
+<hr>
+<p><strong>文档结束</strong><br>如有疑问或需要进一步细化，请联系开发团队。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/coding/" class="print-no-link">#coding</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>想做个好！用！的录音</div>
+      <div>http://example.com/2026/03/09/agent/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>ldy</div>
+        </div>
+      
+      
+      
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/10/17/%E7%A5%9E%E4%BA%BA%E7%A7%91%E5%AD%A6%E5%8F%B2/" title="如果我来做科技史科普">
+                        <span class="hidden-mobile">如果我来做科技史科普</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc);
+    if (isExpandAllEnabled()) {
+      tocConfig.collapseDepth = 6;
+    }
+    window.tocbot.init(tocConfig);
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+    expandAllToc();
+    bindTocToggle();
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+        expandAllToc();
+        bindTocToggle();
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>
