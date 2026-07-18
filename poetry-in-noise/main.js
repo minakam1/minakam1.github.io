@@ -505,7 +505,6 @@
       gallery: 'GALLERY · 集',
       corner:  'CORNER · 角',
       write:   'WRITE · 寄',
-      blog:    'BLOG · 博客',
     };
 
     document.addEventListener('click', (e) => {
