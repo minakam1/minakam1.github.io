@@ -25,6 +25,11 @@ jobs:
         run: |
           mkdir -p _site
           cp -R poetry-in-noise/. _site/
+          # Side pages: 魔法少女まどか character feature (mado-character is self-contained: assets live in mado-character/media/)
+          if [ -d mado-character ]; then
+            mkdir -p _site/mado-character
+            cp -R mado-character/. _site/mado-character/
+          fi
           touch _site/.nojekyll
 
       - name: Configure Pages
