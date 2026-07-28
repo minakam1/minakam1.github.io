@@ -21,10 +21,25 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: resume-builder/package-lock.json
+
+      - name: Build resume builder
+        working-directory: resume-builder
+        run: |
+          npm ci
+          npm run build
+
       - name: Assemble homepage artifact
         run: |
           mkdir -p _site
           cp -R poetry-in-noise/. _site/
+          mkdir -p _site/resume-builder
+          cp -R resume-builder/dist/. _site/resume-builder/
           # Side pages: 魔法少女まどか character feature (mado-character is self-contained: assets live in mado-character/media/)
           if [ -d mado-character ]; then
             mkdir -p _site/mado-character

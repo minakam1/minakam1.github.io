@@ -6,4 +6,8 @@ blog/hexo-new/public/
 blog/hexo-new/node_modules/
 blog/hexo-new/db.json
 blog/hexo-new/test-repo/
+resume-builder/node_modules/
+resume-builder/dist/
+resume-builder/taro-project/node_modules/
+resume-builder/taro-project/dist/
 _site/
