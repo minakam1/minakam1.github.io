@@ -1,11 +1,12 @@
 import { copyFile, mkdir, mkdtemp, readdir, rm, stat } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
-import { basename, join, resolve } from 'node:path';
+import { basename, dirname, join, resolve } from 'node:path';
 import { spawnSync } from 'node:child_process';
 
 const positional = process.argv.slice(2).filter((arg) => !arg.startsWith('--'));
 const source = resolve(positional[0] ?? '');
 const destination = resolve(positional[1] ?? 'blog/hexo-new/source/相册/photos');
+const thumbnailDestination = resolve(dirname(destination), 'thumbnails');
 const option = (name, fallback) => {
   const prefix = `--${name}=`;
   const value = process.argv.slice(2).find((arg) => arg.startsWith(prefix));
@@ -13,10 +14,12 @@ const option = (name, fallback) => {
 };
 const maxEdge = option('max-edge', 2200);
 const requestedTargetKb = option('target-kb', 0);
+const thumbnailEdge = option('thumbnail-edge', 900);
+const thumbnailQuality = option('thumbnail-quality', 70);
 const supported = /\.jpe?g$/i;
 
-if (!positional[0] || !Number.isFinite(maxEdge) || maxEdge < 640) {
-  console.error('Usage: node scripts/import-gallery-photos.mjs <source-dir> [destination-dir] [--max-edge=2200] [--target-kb=465]');
+if (!positional[0] || !Number.isFinite(maxEdge) || maxEdge < 640 || !Number.isFinite(thumbnailEdge) || thumbnailEdge < 320 || !Number.isFinite(thumbnailQuality) || thumbnailQuality < 1 || thumbnailQuality > 100) {
+  console.error('Usage: node scripts/import-gallery-photos.mjs <source-dir> [destination-dir] [--max-edge=2200] [--target-kb=465] [--thumbnail-edge=900] [--thumbnail-quality=70]');
   process.exit(1);
 }
 if (process.platform !== 'darwin') {
@@ -41,10 +44,7 @@ const skipped = sourceEntries.filter((entry) => existingNames.has(entry.name.toL
 const pendingEntries = sourceEntries.filter((entry) => !existingNames.has(entry.name.toLocaleLowerCase()));
 
 if (skipped.length) console.log(`Skipping ${skipped.length} photos already in the album.`);
-if (!pendingEntries.length) {
-  console.log('No new photos to import.');
-  process.exit(0);
-}
+if (!pendingEntries.length) console.log('No new photos to import.');
 
 const existingSizes = await Promise.all(destinationEntries.map(async (entry) => (await stat(join(destination, entry.name))).size));
 existingSizes.sort((left, right) => left - right);
@@ -52,9 +52,9 @@ const median = existingSizes.length ? existingSizes[Math.floor((existingSizes.le
 const targetBytes = requestedTargetKb > 0 ? Math.round(requestedTargetKb * 1024) : median;
 const staging = await mkdtemp(join(tmpdir(), 'gallery-import-'));
 
-const encode = (input, output, quality) => {
+const encode = (input, output, quality, edge = maxEdge) => {
   const result = spawnSync('/usr/bin/sips', [
-    '-Z', String(maxEdge),
+    '-Z', String(edge),
     '-s', 'format', 'jpeg',
     '-s', 'formatOptions', String(quality),
     input,
@@ -95,4 +95,31 @@ try {
 
 const sizes = imported.map((photo) => photo.bytes).sort((left, right) => left - right);
 const total = sizes.reduce((sum, bytes) => sum + bytes, 0);
-console.log(`Imported ${imported.length} photos. Target ${Math.round(targetBytes / 1024)} KB; range ${Math.round(sizes[0] / 1024)}–${Math.round(sizes.at(-1) / 1024)} KB; total ${(total / 1024 / 1024).toFixed(1)} MB.`);
+if (imported.length) console.log(`Imported ${imported.length} photos. Target ${Math.round(targetBytes / 1024)} KB; range ${Math.round(sizes[0] / 1024)}–${Math.round(sizes.at(-1) / 1024)} KB; total ${(total / 1024 / 1024).toFixed(1)} MB.`);
+
+await mkdir(thumbnailDestination, { recursive: true });
+const albumEntries = (await readdir(destination, { withFileTypes: true }))
+  .filter((entry) => entry.isFile() && supported.test(entry.name));
+const thumbnailEntries = (await readdir(thumbnailDestination, { withFileTypes: true }))
+  .filter((entry) => entry.isFile() && supported.test(entry.name));
+const thumbnailNames = new Set(thumbnailEntries.map((entry) => entry.name.toLocaleLowerCase()));
+const pendingThumbnails = albumEntries.filter((entry) => !thumbnailNames.has(entry.name.toLocaleLowerCase()));
+const thumbnailStaging = await mkdtemp(join(tmpdir(), 'gallery-thumbnails-'));
+const thumbnails = [];
+try {
+  for (const entry of pendingThumbnails) {
+    const output = join(thumbnailStaging, entry.name);
+    encode(join(destination, entry.name), output, thumbnailQuality, thumbnailEdge);
+    thumbnails.push({ name: entry.name, output, bytes: (await stat(output)).size });
+  }
+  for (const thumbnail of thumbnails) await copyFile(thumbnail.output, join(thumbnailDestination, thumbnail.name));
+} finally {
+  await rm(thumbnailStaging, { recursive: true, force: true });
+}
+
+if (thumbnails.length) {
+  const thumbnailTotal = thumbnails.reduce((sum, thumbnail) => sum + thumbnail.bytes, 0);
+  console.log(`Generated ${thumbnails.length} thumbnails at ${thumbnailEdge}px; total ${(thumbnailTotal / 1024 / 1024).toFixed(1)} MB.`);
+} else {
+  console.log(`All ${albumEntries.length} thumbnails already exist.`);
+}

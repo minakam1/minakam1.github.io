@@ -129,6 +129,7 @@
   };
 
   const photoUrl = (name) => `./photos/${name.split('/').map(encodeURIComponent).join('/')}`;
+  const thumbnailUrl = (name) => `./thumbnails/${name.split('/').map(encodeURIComponent).join('/')}`;
   const showPhoto = (index) => {
     stopParticles();
     activeIndex = (index + photos.length) % photos.length;
@@ -192,7 +193,7 @@
         }, { once: true });
         image.alt = `照片 ${index + 1}`;
         if (index < 4) image.loading = 'eager';
-        image.src = photoUrl(name);
+        image.src = thumbnailUrl(name);
         if (image.complete) {
           card.dataset.state = image.naturalWidth > 0 ? 'loaded' : 'error';
           card.removeAttribute('aria-busy');

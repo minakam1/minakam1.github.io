@@ -27,3 +27,9 @@
 - Gallery JavaScript and both Node scripts passed syntax checks; the gallery artifact contained 120 photos and a 120-entry manifest. The Resume Builder production build also passed, with only the existing stale Browserslist-data warning.
 - GitHub Pages run `33515593037` completed successfully for commit `978a7ed`. It was the only run created for that commit, confirming that legacy Jekyll publishing no longer ran in parallel.
 - Online checks returned 200 for the homepage, gallery, versioned particle assets, and a newly imported photo. The manifest contained 120 photos, `/blog/` remained 404, and the deployed viewer contained separate `LOADING…` and `LOAD FAILED` states.
+
+## 2026-09-01 gallery thumbnails
+
+- Removed the two user-identified album files `4两代人.jpg` and `5县城边缘.jpg`; neither filename exists in the current external intake folder, so the reusable importer will not restore them from that batch.
+- Generated matching 900 px thumbnails for all remaining 118 photos. Thumbnail total is 13.5 MB versus 55.4 MB for the full display files.
+- The gallery artifact check produced 118 full photos, 118 thumbnails, and a manifest containing 118 entries with both removed names absent.
