@@ -33,3 +33,5 @@
 - Removed the two user-identified album files `4两代人.jpg` and `5县城边缘.jpg`; neither filename exists in the current external intake folder, so the reusable importer will not restore them from that batch.
 - Generated matching 900 px thumbnails for all remaining 118 photos. Thumbnail total is 13.5 MB versus 55.4 MB for the full display files.
 - The gallery artifact check produced 118 full photos, 118 thumbnails, and a manifest containing 118 entries with both removed names absent.
+- GitHub Pages run `33516596942` completed successfully for commit `7e3ee2c`. Online checks confirmed the 118-entry manifest, thumbnail-first stream code, and separate full-photo viewer URLs; a sample thumbnail was 65.9 KB versus its 441.9 KB full image.
+- Both removed full-photo URLs and both corresponding thumbnail URLs returned 404 online. `/blog/` remained 404, and no legacy Jekyll run was created for the release commit.
