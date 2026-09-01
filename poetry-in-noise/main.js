@@ -502,7 +502,7 @@
       journal: 'JOURNAL · 日志',
       reading: 'READING · 读',
       sounds:  'SOUNDS · 听',
-      gallery: 'GALLERY · 集',
+      gallery: 'LIGHT ARCHIVE · 光影集',
       corner:  'CORNER · 角',
       write:   'WRITE · 寄',
     };
