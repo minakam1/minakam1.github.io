@@ -25,3 +25,5 @@
 - The reusable importer skipped 36 already-present names and imported 15 new JPEGs from the same external folder without changing the inputs. Outputs total 6.7 MB and range from 427–510 KB against a 453 KB target.
 - A second importer run skipped all 51 intake-folder photos and exited successfully without overwriting album files.
 - Gallery JavaScript and both Node scripts passed syntax checks; the gallery artifact contained 120 photos and a 120-entry manifest. The Resume Builder production build also passed, with only the existing stale Browserslist-data warning.
+- GitHub Pages run `33515593037` completed successfully for commit `978a7ed`. It was the only run created for that commit, confirming that legacy Jekyll publishing no longer ran in parallel.
+- Online checks returned 200 for the homepage, gallery, versioned particle assets, and a newly imported photo. The manifest contained 120 photos, `/blog/` remained 404, and the deployed viewer contained separate `LOADING…` and `LOAD FAILED` states.
