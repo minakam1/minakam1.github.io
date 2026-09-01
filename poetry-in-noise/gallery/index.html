@@ -8,7 +8,7 @@
   <meta name="theme-color" content="#f1e6cf" />
   <link rel="preconnect" href="https://fonts.loli.net" crossorigin />
   <link href="https://fonts.loli.net/css2?family=Press+Start+2P&family=VT323&family=DM+Serif+Display:ital@0;1&family=ZCOOL+XiaoWei&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" crossorigin="anonymous" />
-  <link rel="stylesheet" href="./gallery.css?v=4" />
+  <link rel="stylesheet" href="./gallery.css?v=5" />
 </head>
 <body>
   <div class="texture texture--grain" aria-hidden="true"></div>
@@ -39,6 +39,7 @@
   <footer><span>LIGHT ARCHIVE</span><a href="../">← 返回主页</a></footer>
 
   <dialog class="viewer" id="viewer" data-state="idle" aria-label="照片预览">
+    <canvas class="viewer__particles" id="viewerParticles" aria-hidden="true"></canvas>
     <span class="viewer__loading" id="viewerLoading" role="status">LOADING…</span>
     <button class="viewer__close" id="closeViewer" type="button" aria-label="关闭">×</button>
     <button class="viewer__nav" id="prevPhoto" type="button" aria-label="上一张">←</button>
@@ -51,6 +52,6 @@
       <button type="button"><span class="photo-card__loading" aria-hidden="true">LOADING…</span><img alt="" loading="lazy" decoding="async" /></button>
     </article>
   </template>
-  <script src="./gallery.js?v=4"></script>
+  <script src="./gallery.js?v=5"></script>
 </body>
 </html>

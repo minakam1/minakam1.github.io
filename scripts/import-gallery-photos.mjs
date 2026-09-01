@@ -37,10 +37,13 @@ if (!sourceEntries.length) {
 }
 
 const existingNames = new Set(destinationEntries.map((entry) => entry.name.toLocaleLowerCase()));
-const collisions = sourceEntries.filter((entry) => existingNames.has(entry.name.toLocaleLowerCase()));
-if (collisions.length) {
-  console.error(`Refusing to overwrite existing photos: ${collisions.map((entry) => entry.name).join(', ')}`);
-  process.exit(1);
+const skipped = sourceEntries.filter((entry) => existingNames.has(entry.name.toLocaleLowerCase()));
+const pendingEntries = sourceEntries.filter((entry) => !existingNames.has(entry.name.toLocaleLowerCase()));
+
+if (skipped.length) console.log(`Skipping ${skipped.length} photos already in the album.`);
+if (!pendingEntries.length) {
+  console.log('No new photos to import.');
+  process.exit(0);
 }
 
 const existingSizes = await Promise.all(destinationEntries.map(async (entry) => (await stat(join(destination, entry.name))).size));
@@ -62,7 +65,7 @@ const encode = (input, output, quality) => {
 
 const imported = [];
 try {
-  for (const entry of sourceEntries) {
+  for (const entry of pendingEntries) {
     const input = join(source, entry.name);
     let low = 30;
     let high = 88;
