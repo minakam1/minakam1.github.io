@@ -11,3 +11,9 @@
 - Locally assembled artifact returned 200 for `/` and `/gallery/`, and 404 for `/blog/`.
 - GitHub Pages run `33510191741` completed successfully for commit `985047c`.
 - Online checks returned 200 for `/`, `/gallery/`, and `/gallery/photos.json`; the manifest contained all 70 photos. `/blog/` returned 404 and the homepage had no blog link.
+
+## 2026-09-01 external photo import
+
+- Imported 35 JPEG photos from `/Volumes/Extreme SSD/照添加/` without modifying the originals.
+- Input total was about 177 MB with a median near 5.7 MB; compressed copies total 15.2 MB and range from 354–472 KB, close to the prior album median of 455 KB.
+- Visual spot checks covered landscape, portrait, color, and black-and-white results.

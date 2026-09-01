@@ -19,6 +19,7 @@
   const loadState = document.querySelector('#loadState');
   const viewer = document.querySelector('#viewer');
   const viewerImage = document.querySelector('#viewerImage');
+  const viewerLoading = document.querySelector('#viewerLoading');
   let photos = [];
   let activeIndex = 0;
 
@@ -26,8 +27,11 @@
   const showPhoto = (index) => {
     activeIndex = (index + photos.length) % photos.length;
     const name = photos[activeIndex];
+    viewer.dataset.state = 'loading';
+    viewerLoading.textContent = 'LOADING…';
     viewerImage.src = photoUrl(name);
     viewerImage.alt = `照片 ${activeIndex + 1}`;
+    if (viewerImage.complete && viewerImage.naturalWidth > 0) viewer.dataset.state = 'loaded';
   };
   const openViewer = (index) => {
     showPhoto(index);
@@ -61,9 +65,26 @@
       photos.forEach((name, index) => {
         const card = template.content.firstElementChild.cloneNode(true);
         const image = card.querySelector('img');
-        image.src = photoUrl(name);
+        const loading = card.querySelector('.photo-card__loading');
+        card.dataset.state = 'loading';
+        card.setAttribute('aria-busy', 'true');
+        image.addEventListener('load', () => {
+          card.dataset.state = 'loaded';
+          card.removeAttribute('aria-busy');
+        }, { once: true });
+        image.addEventListener('error', () => {
+          card.dataset.state = 'error';
+          card.removeAttribute('aria-busy');
+          loading.textContent = 'LOAD FAILED';
+        }, { once: true });
         image.alt = `照片 ${index + 1}`;
         if (index < 4) image.loading = 'eager';
+        image.src = photoUrl(name);
+        if (image.complete) {
+          card.dataset.state = image.naturalWidth > 0 ? 'loaded' : 'error';
+          card.removeAttribute('aria-busy');
+          if (!image.naturalWidth) loading.textContent = 'LOAD FAILED';
+        }
         card.querySelector('button').ariaLabel = '打开照片';
         card.querySelector('button').addEventListener('click', () => openViewer(index));
         fragment.append(card);
@@ -78,6 +99,11 @@
   document.querySelector('#closeViewer').addEventListener('click', closeViewer);
   document.querySelector('#prevPhoto').addEventListener('click', () => showPhoto(activeIndex - 1));
   document.querySelector('#nextPhoto').addEventListener('click', () => showPhoto(activeIndex + 1));
+  viewerImage.addEventListener('load', () => { viewer.dataset.state = 'loaded'; });
+  viewerImage.addEventListener('error', () => {
+    viewer.dataset.state = 'error';
+    viewerLoading.textContent = 'LOAD FAILED';
+  });
   viewer.addEventListener('click', (event) => { if (event.target === viewer) closeViewer(); });
   viewer.addEventListener('close', () => { document.body.style.overflow = ''; });
   document.addEventListener('keydown', (event) => {

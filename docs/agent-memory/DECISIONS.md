@@ -15,3 +15,5 @@
 - Present the gallery as a continuous, natural-ratio photo stream without per-photo numbers, filenames, titles, captions, chapters, or commentary.
 - Publish every supported image from `blog/hexo-new/source/相册/photos/`. `scripts/build-gallery.mjs` copies the files and generates `photos.json` during deployment, so adding a source photo requires no page edit.
 - Keep the original photo files under the Hexo source unchanged.
+- Use `scripts/import-gallery-photos.mjs` for new JPEG batches. It keeps input files unchanged, targets the current album median size, caps the longest edge at 2200 px, and refuses filename collisions.
+- The gallery keeps the grain layer but has no full-screen scanline texture. Every stream image and the full-screen viewer show loading and failure states.

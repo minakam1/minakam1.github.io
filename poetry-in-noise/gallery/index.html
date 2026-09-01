@@ -8,11 +8,10 @@
   <meta name="theme-color" content="#f1e6cf" />
   <link rel="preconnect" href="https://fonts.loli.net" crossorigin />
   <link href="https://fonts.loli.net/css2?family=Press+Start+2P&family=VT323&family=DM+Serif+Display:ital@0;1&family=ZCOOL+XiaoWei&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" crossorigin="anonymous" />
-  <link rel="stylesheet" href="./gallery.css?v=3" />
+  <link rel="stylesheet" href="./gallery.css?v=4" />
 </head>
 <body>
   <div class="texture texture--grain" aria-hidden="true"></div>
-  <div class="texture texture--scan" aria-hidden="true"></div>
 
   <header class="statusbar">
     <div class="statusbar__group"><span class="statusbar__dot"></span><span>REC</span><span class="dim">·</span><span>LIGHT ARCHIVE</span></div>
@@ -39,7 +38,8 @@
 
   <footer><span>LIGHT ARCHIVE</span><a href="../">← 返回主页</a></footer>
 
-  <dialog class="viewer" id="viewer" aria-label="照片预览">
+  <dialog class="viewer" id="viewer" data-state="idle" aria-label="照片预览">
+    <span class="viewer__loading" id="viewerLoading" role="status">LOADING…</span>
     <button class="viewer__close" id="closeViewer" type="button" aria-label="关闭">×</button>
     <button class="viewer__nav" id="prevPhoto" type="button" aria-label="上一张">←</button>
     <figure><img id="viewerImage" alt="" /></figure>
@@ -48,9 +48,9 @@
 
   <template id="photoTemplate">
     <article class="photo-card">
-      <button type="button"><img alt="" loading="lazy" decoding="async" /></button>
+      <button type="button"><span class="photo-card__loading" aria-hidden="true">LOADING…</span><img alt="" loading="lazy" decoding="async" /></button>
     </article>
   </template>
-  <script src="./gallery.js?v=3"></script>
+  <script src="./gallery.js?v=4"></script>
 </body>
 </html>
