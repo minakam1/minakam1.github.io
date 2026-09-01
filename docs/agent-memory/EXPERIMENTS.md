@@ -9,4 +9,5 @@
 - Remote visibility was changed from `PRIVATE` to `PUBLIC` through GitHub CLI.
 - Desktop and 390 px mobile browser previews rendered without horizontal overflow or console errors; theme switching, lightbox open/close, and previous/next navigation worked.
 - Locally assembled artifact returned 200 for `/` and `/gallery/`, and 404 for `/blog/`.
-- Online deployment and route checks are recorded here after the push completes.
+- GitHub Pages run `33510191741` completed successfully for commit `985047c`.
+- Online checks returned 200 for `/`, `/gallery/`, and `/gallery/photos.json`; the manifest contained all 70 photos. `/blog/` returned 404 and the homepage had no blog link.
