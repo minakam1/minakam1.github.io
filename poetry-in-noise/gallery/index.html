@@ -4,137 +4,54 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>mimi. / 光影集</title>
-  <meta name="description" content="mimi 的光影集：夜色、街头与偶然被接住的光。" />
+  <meta name="description" content="mimi 的照片信息流。" />
   <meta name="theme-color" content="#f1e6cf" />
   <link rel="preconnect" href="https://fonts.loli.net" crossorigin />
-  <link href="https://fonts.loli.net/css2?family=Press+Start+2P&family=VT323&family=DM+Serif+Display:ital@0;1&family=ZCOOL+XiaoWei&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=Bebas+Neue&family=Space+Mono:wght@400;700&family=Manrope:wght@300;400;500;700&display=swap" rel="stylesheet" crossorigin="anonymous" />
-  <link rel="stylesheet" href="./gallery.css?v=1" />
+  <link href="https://fonts.loli.net/css2?family=Press+Start+2P&family=VT323&family=DM+Serif+Display:ital@0;1&family=ZCOOL+XiaoWei&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" crossorigin="anonymous" />
+  <link rel="stylesheet" href="./gallery.css?v=2" />
 </head>
 <body>
   <div class="texture texture--grain" aria-hidden="true"></div>
   <div class="texture texture--scan" aria-hidden="true"></div>
 
   <header class="statusbar">
-    <div class="statusbar__group">
-      <span class="statusbar__dot"></span><span>REC</span><span class="dim">·</span><span>ARCHIVE 001</span>
-    </div>
-    <div class="statusbar__group">
-      <span id="clock">--:--:--</span><span class="dim">·</span>
-      <a class="statusbar__button" href="../">← HOME</a>
-      <button class="statusbar__button" id="themeBtn" type="button" title="切换纸张（1–6）">▣</button>
-    </div>
+    <div class="statusbar__group"><span class="statusbar__dot"></span><span>REC</span><span class="dim">·</span><span>LIGHT ARCHIVE</span></div>
+    <div class="statusbar__group"><span id="clock">--:--:--</span><span class="dim">·</span><a class="statusbar__button" href="../">← HOME</a><button class="statusbar__button" id="themeBtn" type="button" aria-label="切换纸张">▣</button></div>
   </header>
 
   <div class="marquee" aria-hidden="true">
-    <div class="marquee__track">
-      <span>✦ LIGHT CAUGHT IN NOISE ✦ 夜色 / 街头 / 余光 / 偶然 ✦ 点击照片进入暗房 ✦ 1–6 切换纸张 ✦ </span>
-      <span>✦ LIGHT CAUGHT IN NOISE ✦ 夜色 / 街头 / 余光 / 偶然 ✦ 点击照片进入暗房 ✦ 1–6 切换纸张 ✦ </span>
-    </div>
+    <div class="marquee__track"><span>✦ LIGHT ARCHIVE ✦ PHOTO STREAM ✦ 点击照片查看原图 ✦ 1–6 切换纸张 ✦ </span><span>✦ LIGHT ARCHIVE ✦ PHOTO STREAM ✦ 点击照片查看原图 ✦ 1–6 切换纸张 ✦ </span></div>
   </div>
 
   <main>
-    <section class="hero" aria-labelledby="gallery-title">
-      <div class="hero__kicker">/ VISUAL NOTES / 2026 /</div>
-      <div class="hero__title-wrap">
-        <h1 id="gallery-title"><span>光影</span><span class="hero__italic">集</span></h1>
-        <div class="hero__stamp" aria-hidden="true">MIMI<br />ARCHIVE<br />NO.001</div>
+    <section class="masthead">
+      <div class="masthead__kicker">/ PHOTO STREAM /</div>
+      <div class="masthead__line">
+        <h1>光影集</h1>
+        <div class="masthead__stamp" aria-hidden="true">MIMI<br />LIGHT<br />ARCHIVE</div>
       </div>
-      <div class="hero__meta">
-        <p>那些没有成为故事的瞬间，<br />被光先一步留下。</p>
-        <div class="hero__facts"><span>18 FRAMES</span><span>03 CHAPTERS</span><span>ONE OPEN SHUTTER</span></div>
-      </div>
+      <div class="masthead__meta"><span id="photoCount">— PHOTOS</span><span>SCROLL TO VIEW</span></div>
     </section>
 
-    <section class="contact-sheet" aria-label="光影照片集">
-      <figure class="frame frame--hero" data-index="0">
-        <button type="button" aria-label="打开：晚十点"><img src="./photos/01-night-ten.jpg" alt="夜色中被红光照亮的街口" fetchpriority="high" /></button>
-        <figcaption><span>01</span><strong>晚十点</strong><em>NIGHT / RED</em></figcaption>
-      </figure>
-      <figure class="frame frame--wide" data-index="1">
-        <button type="button" aria-label="打开：困摊子"><img src="./photos/02-tired-stall.jpg" alt="夜路上并肩走过车灯的人" fetchpriority="high" /></button>
-        <figcaption><span>02</span><strong>困摊子</strong><em>HEADLIGHT</em></figcaption>
-      </figure>
-      <figure class="frame frame--tall" data-index="2">
-        <button type="button" aria-label="打开：两种心态"><img src="./photos/03-two-moods.jpg" alt="灯泡下的夜间水果摊" loading="lazy" decoding="async" /></button>
-        <figcaption><span>03</span><strong>两种心态</strong><em>STALL LIGHT</em></figcaption>
-      </figure>
-      <figure class="frame" data-index="3">
-        <button type="button" aria-label="打开：两代人"><img src="./photos/04-two-generations.jpg" alt="河岸夜色里的垂钓者" loading="lazy" decoding="async" /></button>
-        <figcaption><span>04</span><strong>两代人</strong><em>RIVERSIDE</em></figcaption>
-      </figure>
-      <aside class="note note--red"><span>NO FLASH</span><p>黑暗不是空白。<br />它只是还没显影。</p></aside>
-      <figure class="frame frame--wide" data-index="4">
-        <button type="button" aria-label="打开：县城边缘"><img src="./photos/05-town-edge.jpg" alt="城市边缘被橙色路灯照亮的荒地" loading="lazy" decoding="async" /></button>
-        <figcaption><span>05</span><strong>县城边缘</strong><em>THE EDGE</em></figcaption>
-      </figure>
-      <figure class="frame frame--wide" data-index="5">
-        <button type="button" aria-label="打开：看热闹"><img src="./photos/06-watching.jpg" alt="夜间街头迎面驶来的电动车" loading="lazy" decoding="async" /></button>
-        <figcaption><span>06</span><strong>看热闹</strong><em>PASSING BY</em></figcaption>
-      </figure>
-
-      <div class="chapter"><span>CHAPTER 02</span><strong>冷光与机器</strong><em>COLD LIGHT / MACHINES</em></div>
-      <figure class="frame frame--tall" data-index="6">
-        <button type="button" aria-label="打开第 7 张"><img src="./photos/07-dsc03376.jpg" alt="阴天飞行表演中的飞机" loading="lazy" decoding="async" /></button>
-        <figcaption><span>07</span><strong>越过</strong><em>AIR / 01</em></figcaption>
-      </figure>
-      <figure class="frame frame--wide" data-index="7">
-        <button type="button" aria-label="打开第 8 张"><img src="./photos/08-dsc03430.jpg" alt="灰色天空下的航空器细节" loading="lazy" decoding="async" /></button>
-        <figcaption><span>08</span><strong>铆钉</strong><em>AIR / 02</em></figcaption>
-      </figure>
-      <figure class="frame" data-index="8">
-        <button type="button" aria-label="打开第 9 张"><img src="./photos/09-dsc03568.jpg" alt="航空展上的机体与天空" loading="lazy" decoding="async" /></button>
-        <figcaption><span>09</span><strong>低云</strong><em>AIR / 03</em></figcaption>
-      </figure>
-      <aside class="note"><span>FIELD NOTE 09</span><p>金属把天空切成几何，声音留在画面之外。</p></aside>
-      <figure class="frame frame--hero" data-index="9">
-        <button type="button" aria-label="打开第 10 张"><img src="./photos/10-dsc03882.jpg" alt="航空器尾部的机械结构" loading="lazy" decoding="async" /></button>
-        <figcaption><span>10</span><strong>尾迹</strong><em>STATIC FLIGHT</em></figcaption>
-      </figure>
-      <figure class="frame" data-index="10">
-        <button type="button" aria-label="打开第 11 张"><img src="./photos/11-dsc04174.jpg" alt="机翼与阴天的留白" loading="lazy" decoding="async" /></button>
-        <figcaption><span>11</span><strong>留白</strong><em>GREY SKY</em></figcaption>
-      </figure>
-      <figure class="frame frame--wide" data-index="11">
-        <button type="button" aria-label="打开第 12 张"><img src="./photos/12-dsc04376.jpg" alt="航空展现场的机械轮廓" loading="lazy" decoding="async" /></button>
-        <figcaption><span>12</span><strong>地面时刻</strong><em>GROUND TIME</em></figcaption>
-      </figure>
-
-      <div class="chapter chapter--last"><span>CHAPTER 03</span><strong>银盐余像</strong><em>SILVER / AFTERIMAGE</em></div>
-      <figure class="frame frame--tall" data-index="12">
-        <button type="button" aria-label="打开第 13 张"><img src="./photos/13-imgp7561.jpg" alt="黑白胶片中的室内人物叠影" loading="lazy" decoding="async" /></button>
-        <figcaption><span>13</span><strong>叠影</strong><em>DOUBLE</em></figcaption>
-      </figure>
-      <figure class="frame frame--wide" data-index="13">
-        <button type="button" aria-label="打开第 14 张"><img src="./photos/14-imgp7573.jpg" alt="黑白胶片中的城市片段" loading="lazy" decoding="async" /></button>
-        <figcaption><span>14</span><strong>未命名街区</strong><em>FILM / 02</em></figcaption>
-      </figure>
-      <figure class="frame" data-index="14">
-        <button type="button" aria-label="打开第 15 张"><img src="./photos/15-imgp7584.jpg" alt="颗粒感黑白街景" loading="lazy" decoding="async" /></button>
-        <figcaption><span>15</span><strong>白昼颗粒</strong><em>FILM / 03</em></figcaption>
-      </figure>
-      <figure class="frame frame--wide" data-index="15">
-        <button type="button" aria-label="打开第 16 张"><img src="./photos/16-r0016085.jpg" alt="黑白街巷中的车辆与电线" loading="lazy" decoding="async" /></button>
-        <figcaption><span>16</span><strong>巷口</strong><em>ALLEY</em></figcaption>
-      </figure>
-      <figure class="frame frame--tall" data-index="16">
-        <button type="button" aria-label="打开第 17 张"><img src="./photos/17-r0016193.jpg" alt="胶片记录的日常街头" loading="lazy" decoding="async" /></button>
-        <figcaption><span>17</span><strong>日常证词</strong><em>WITNESS</em></figcaption>
-      </figure>
-      <figure class="frame frame--hero" data-index="17">
-        <button type="button" aria-label="打开第 18 张"><img src="./photos/18-r0016250.jpg" alt="黑白胶片中的道路与光线" loading="lazy" decoding="async" /></button>
-        <figcaption><span>18</span><strong>还在路上</strong><em>END / CONTINUE</em></figcaption>
-      </figure>
-    </section>
+    <section class="photo-stream" id="photoStream" aria-label="全部照片" aria-live="polite"></section>
+    <p class="load-state" id="loadState">正在读取照片…</p>
   </main>
 
-  <footer><span>LIGHT ARCHIVE · 001</span><p>all photographs by mimi · printed on the internet</p><a href="../">← 返回主页</a></footer>
+  <footer><span>LIGHT ARCHIVE</span><a href="../">← 返回主页</a></footer>
 
-  <dialog class="darkroom" id="darkroom" aria-label="照片预览">
-    <button class="darkroom__close" id="closeViewer" type="button" aria-label="关闭">×</button>
-    <button class="darkroom__nav darkroom__nav--prev" id="prevPhoto" type="button" aria-label="上一张">←</button>
+  <dialog class="viewer" id="viewer" aria-label="照片预览">
+    <button class="viewer__close" id="closeViewer" type="button" aria-label="关闭">×</button>
+    <button class="viewer__nav" id="prevPhoto" type="button" aria-label="上一张">←</button>
     <figure><img id="viewerImage" alt="" /><figcaption id="viewerCaption"></figcaption></figure>
-    <button class="darkroom__nav darkroom__nav--next" id="nextPhoto" type="button" aria-label="下一张">→</button>
+    <button class="viewer__nav" id="nextPhoto" type="button" aria-label="下一张">→</button>
   </dialog>
-  <script src="./gallery.js?v=1"></script>
+
+  <template id="photoTemplate">
+    <article class="photo-card">
+      <button type="button"><img alt="" loading="lazy" decoding="async" /></button>
+      <div class="photo-card__meta"><span class="photo-card__number"></span><span class="photo-card__name"></span></div>
+    </article>
+  </template>
+  <script src="./gallery.js?v=2"></script>
 </body>
 </html>

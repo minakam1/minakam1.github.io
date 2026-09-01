@@ -38,6 +38,7 @@ jobs:
         run: |
           mkdir -p _site
           cp -R poetry-in-noise/. _site/
+          node scripts/build-gallery.mjs blog/hexo-new/source/相册/photos _site/gallery
           mkdir -p _site/resume-builder
           cp -R resume-builder/dist/. _site/resume-builder/
           # Side pages: 魔法少女まどか character feature (mado-character is self-contained: assets live in mado-character/media/)

@@ -10,5 +10,6 @@
 
 - Use `/gallery/` as the stable second-level route.
 - Match the homepage visual language: six paper themes, pixel status bar, marquee, red stamp, printed contact-sheet layout, and subtle grain.
-- Publish a curated set of 18 copied photographs so the gallery does not depend on the unpublished `/blog/` tree.
+- Present the gallery as a continuous, natural-ratio photo stream without editorial captions, invented titles, chapters, or commentary.
+- Publish every supported image from `blog/hexo-new/source/相册/photos/`. `scripts/build-gallery.mjs` copies the files and generates `photos.json` during deployment, so adding a source photo requires no page edit.
 - Keep the original photo files under the Hexo source unchanged.
