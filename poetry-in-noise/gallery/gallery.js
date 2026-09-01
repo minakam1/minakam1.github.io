@@ -19,7 +19,6 @@
   const loadState = document.querySelector('#loadState');
   const viewer = document.querySelector('#viewer');
   const viewerImage = document.querySelector('#viewerImage');
-  const viewerCaption = document.querySelector('#viewerCaption');
   let photos = [];
   let activeIndex = 0;
 
@@ -29,7 +28,6 @@
     const name = photos[activeIndex];
     viewerImage.src = photoUrl(name);
     viewerImage.alt = `照片 ${activeIndex + 1}`;
-    viewerCaption.textContent = `${String(activeIndex + 1).padStart(2, '0')} / ${String(photos.length).padStart(2, '0')} · ${name}`;
   };
   const openViewer = (index) => {
     showPhoto(index);
@@ -66,9 +64,7 @@
         image.src = photoUrl(name);
         image.alt = `照片 ${index + 1}`;
         if (index < 4) image.loading = 'eager';
-        card.querySelector('button').ariaLabel = `打开照片 ${index + 1}`;
-        card.querySelector('.photo-card__number').textContent = String(index + 1).padStart(2, '0');
-        card.querySelector('.photo-card__name').textContent = name;
+        card.querySelector('button').ariaLabel = '打开照片';
         card.querySelector('button').addEventListener('click', () => openViewer(index));
         fragment.append(card);
       });
